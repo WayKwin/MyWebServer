@@ -1,0 +1,42 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+M	day04/gcc/hello.c	2;"	d	file:
+__ADD_H__	day06/project/add.h	2;"	d
+__ADD_H__	day06/project/sub.h	3;"	d
+__HANO_H__	day06/game/hanno.h	2;"	d
+a	day04/gcc/hello.c	/^int a;$/;"	v
+add	day06/project/add.c	/^int  add(int a,int b)$/;"	f	signature:(int a,int b)
+add	day06/project/add.h	/^int add(int a,int b);$/;"	p	signature:(int a,int b)
+b	day04/gcc/hello.c	/^int b=0;$/;"	v
+c	day04/gcc/hello.c	/^int c=3;$/;"	v
+f	day04/gcc/hello.c	/^const int f=4;$/;"	v
+fun	day04/gcc/hello.c	/^void fun()$/;"	f
+func	day05/fib.c	/^int func( int n)$/;"	f	signature:( int n)
+hanno	day06/game/hanno.c	/^void hanno(int n,char A, char B,char C)$/;"	f	signature:(int n,char A, char B,char C)
+hanno	day06/game/hanno.h	/^void hanno(int n,char A,char B,char C);$/;"	p	signature:(int n,char A,char B,char C)
+main	cpcp/day02/frist.c	/^	int main(){$/;"	f
+main	day01/frist.c	/^	int main(){$/;"	f
+main	day01/tongji.c	/^int main(int argc,char *argv[])$/;"	f	signature:(int argc,char *argv[])
+main	day02/frist.c	/^	int main(){$/;"	f
+main	day04/gcc/hello.c	/^int main()$/;"	f
+main	day04/gcc/hello.s	/^main:$/;"	l
+main	day05/Link/main.cpp	/^	int main()$/;"	f	signature:()
+main	day05/error.c	/^int main()$/;"	f
+main	day05/fib.c	/^int main(void)$/;"	f	signature:(void)
+main	day05/mem.c	/^int main()$/;"	f
+main	day06/buff/buf.c	/^int main()$/;"	f
+main	day06/buff/test.c	/^int main()$/;"	f
+main	day06/game/main.c	/^int main()$/;"	f
+main	day06/jindutiao/j.c	/^int main()$/;"	f
+main	day06/jindutiao/j1.c	/^int main()$/;"	f
+main	day06/jindutiao/j2.c	/^int main()$/;"	f
+main	day06/jindutiao/test.c	/^int main()$/;"	f
+main	day06/project/main.c	/^int main(void)$/;"	f	signature:(void)
+main	testcp/tree.c	/^int main(void)$/;"	f	signature:(void)
+print_tree	testcp/tree.c	/^int print_tree(const char *str,int gap,char shp)$/;"	f	signature:(const char *str,int gap,char shp)
+sub	day06/project/sub.c	/^int  sub(int a,int b)$/;"	f	signature:(int a,int b)
+sub	day06/project/sub.h	/^int sub(int a,int b);$/;"	p	signature:(int a,int b)
