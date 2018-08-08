@@ -64,6 +64,12 @@ void test_strpbrk()
   printf("%s\n",version);
   
 }
+void test_file_type()
+{
+  char* file = "index.php";
+  char* type = strchr(file,'.');
+  printf("%s\n",type);
+}
 int mon_log(char* format,...)
 {
   char str_tmp[50];
@@ -135,7 +141,8 @@ void test_socketpairt()
 }
 int main()
 {
-  test_socketpairt();
+  test_file_type();
+  //test_socketpairt();
   //test_env();
   //test_strpbrk();
   //test_threadpool();

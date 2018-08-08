@@ -121,7 +121,6 @@ class HttpConnec
   char* m_cgi_parameter=NULL;
   bool check_url_parameter(char* );
   bool CGIentry();
-  bool PHPentry();
   bool Python_entry();
   bool Script_entry();
   char m_cgi_address[2048];

@@ -1,0 +1,6 @@
+g++    -c -o locker.o ./src/locker.cpp
+g++    -c -o http_conn.o ./src/http_conn.cpp
+g++    -c -o threadpool.o ./src/threadpool.cpp
+g++    -c -o main.o ./src/main.cpp
+g++    -c -o log.o ./src/log.cpp
+g++  -lpthread -Wall -g -I./incl/ -std=c++11 -D__DEBUG__ locker.o http_conn.o threadpool.o main.o log.o -o WK_Http  

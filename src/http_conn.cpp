@@ -1,40 +1,5 @@
 #include"../incl/http_conn.h"
 
-/*debug 1
- * oneshot 作用: 多线程,et 一个线程 A 在循环读取一个socket上的读事件,当它还没读完的时候,此时这个socket又触发了一个读事件(边沿触发)
- * 会被其他线程拿到,会就造成数据不一致的状态
- * oneshot: 在socket触发之后就会清除此socket, 只有当 线程 A 读完数据发生 EAGAIN时,再次将此socket加入epoll的监听列表中
- * 但在加入监听列表前 socket又就绪了,那么加入epoll的时候就会立刻返回,不影响
- * 
- */
-/*debug 2
- *在一个返回值为bool的函数中我没有写返回值,导致函数随机
- *跳转, 错误表现为 "非法错误" ,调试了很久才发现问题所在
- * 
- * 
- * /
-*debug 2
- * 在realse版本中,我知道是需要用非阻塞读取
- * 但是在debug中我忘记将sock设置为非阻塞模式
- * 所以现象是服务器已经将数据发送给客户端,
- * 但在浏览器未接收到任何数据
- * 
- */
-/*debug 3
- * 主状态机: 在parse_line() = line_ok (遇到空行的时候就认为读取完毕)
- * 这样在post中就读不到正文 很早就找到问题所在,但是解决问题花费了很长时间
- *debug 4
- *  条件编译 #ifdef 没有作用  解决中  18.8.6
- * 
- *
- * 现象表明http在解析htlm文档的时候会将所需资源再次发起http请求
- * 
- * 
- * 
- * 
- * TODO
- * 
- */
 int HttpConnec::m_epollfd;
 int HttpConnec::m_user_count;
 const char* ok_200_title = "OK";
@@ -72,7 +37,6 @@ void addfd(int epollfd,int fd,bool onshot)
    throw  "epoll_ctl add \n";
  }
  SetNonBlocking(fd);
-
 }
 void removefd(int epollfd,int fd)
 {
@@ -157,7 +121,7 @@ bool HttpConnec::read()
 #ifdef __DEBUG__
         printf("read over(in read function)\n");
 #endif
-        //break;
+        break;
         //continue;
       }
     }
@@ -382,7 +346,7 @@ HttpConnec::HTTP_CODE HttpConnec::request_check()
     return do_request();
   }
 }
-//TODO
+//  获取GET url后面的请求参数
 bool HttpConnec::check_url_parameter(char* mrl)
 {
   //在处理request line 使用strpbrk比较字符串
@@ -391,7 +355,9 @@ bool HttpConnec::check_url_parameter(char* mrl)
     return false;
   *cur++ = '\0';
   m_cgi_parameter = cur;
-  //printf("m_cgi_parameter:%s\n",m_cgi_parameter);
+#ifdef _DEEBUG__
+  printf("m_cgi_parameter:%s\n",m_cgi_parameter);
+#endif
   return true;
 }
 HttpConnec::HTTP_CODE HttpConnec::do_request()
@@ -449,10 +415,19 @@ HttpConnec::HTTP_CODE HttpConnec::do_request()
     //printf("%s",m_file_address);
   return  OK_REQUEST;
 }
-bool HttpConnec::PHPentry()
+
+bool HttpConnec::Script_entry()
 {
-    char* argv[] ={"php",m_request_file,NULL};
+  // file tpye: .py .sh .php
+    char* type = strrchr(m_request_file,'.');// 注意从后往前找
+    if(type == NULL)
+      return false;
+    //printf("Script_type:%s\n",type);
+    type++;
+    char* argv[] ={type,m_request_file,NULL};
+
     execvp("php",argv);
+    //错误返回
     return false;
 }
 //bool HttpConnec::Pythonentry()
@@ -464,19 +439,19 @@ bool HttpConnec::CGIentry()
   setenv("METHOD",m_method == POST? "POST":"GET",0);
   if(m_method == GET)
   {
-    //无参GET
+    //无参GET  错误判断
     if(m_cgi_parameter == NULL)
     {
       printf("m_cgi_parameter == NULL\n");
       return false;
     }
-    //TODO  支持其他方法 
-    if(m_method != POST && m_method != GET)
-    {
-      return false;
-    }
     // 需要运行的的CGI在 url中
     setenv("QUERY_STRING",m_cgi_parameter,0);
+  }
+  //TODO  支持其他方法 
+  if(m_method != POST && m_method != GET)
+  {
+    return false;
   }
 
   
@@ -493,13 +468,16 @@ bool HttpConnec::CGIentry()
     close(m_sockfd);
     close(sockfd[0]);
     dup2(sockfd[1],fileno(stdout));
+    dup2(sockfd[1],fileno(stdin));
     //支持脚本函数
     //查看m_requset_file 的后缀 区分不同脚本
-    
-    return PHPentry();    
+    //Script_entry();    
+    //printf(" is not script\n");
    //SWITCH 脚本
     char* argv[] = {m_request_file,NULL};
     execvp(m_request_file,argv);
+    //printf("\nexecvp error\n");
+    exit(1);
   }
   else if(pid >0)
   {
@@ -507,7 +485,7 @@ bool HttpConnec::CGIentry()
     if(m_method == POST)
     {
 #ifdef __DEBUG__
-      printf("In POST,send to CGI %s\n",m_content);
+      printf("In POST,send to CGI  %s\n",m_content);
 #endif
       send(sockfd[0],m_content,m_content_length,0);
     }
@@ -769,8 +747,15 @@ bool HttpConnec::write_respone(HTTP_CODE ret)
 void HttpConnec::process()
 {
     write_respone(request_check()); 
-    if(!write())
-    {
+    // 这里有两个选择1
+    // 1在epoll中注册 这个fd 上的可写时间
+    // 2直接写
+    //   直接写快一点
+#ifdef __EPOLL_ADD_OUT__
+    modfd(m_epollfd,m_sockfd,EPOLLOUT);
+#else 
+    if(!write()) {
       close_connec();
     }
+#endif
 }
