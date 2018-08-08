@@ -1,6 +1,6 @@
 # 自主Web服务器
 ## 主体框架  
-![](https://github.com/WayKwin/MyWebServer/tree/master/picture)
+![主体框架](https://github.com/WayKwin/MyWebServer/blob/master/picture/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6.png)
 ## 一些小发现
 ## 在http发送请求等待响应时,服务器对回应的处理
     1. 子线程使用epollctl 将socket添加写事件,然后主线程epoll_wait监测到写事件就绪去写回应
