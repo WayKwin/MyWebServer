@@ -574,7 +574,7 @@ bool HttpConnec::add_linger()
 }
 bool HttpConnec::add_content_type()
 {
-  return add_response("Content-Type: %s\r\n","text/html;charset:utf-8");
+  return add_response("Content-Type: %s\r\n","text/html; charset:UTF-8");
 }
 
 bool HttpConnec::add_blank_line()

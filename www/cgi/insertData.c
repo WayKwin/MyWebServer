@@ -7,7 +7,7 @@
 void insert_data(char* name,char*sex,char*age,char* telphone)
 {
   MYSQL* mysql_fd = mysql_init(NULL);
-  if(mysql_real_connect(mysql_fd,"127.0.0.1","root","","people",3306,NULL,0) == NULL)
+  if(mysql_real_connect(mysql_fd,"127.0.0.1","root","123456","people",3306,NULL,0) == NULL)
   {
     printf("connect mysql error!\n");
     goto out;
