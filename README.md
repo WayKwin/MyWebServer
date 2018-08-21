@@ -14,23 +14,27 @@
     - 写了一个提交表单插入数据库的玩具Demon
     - 支持Shell,PHP,Python脚本
 ## 压力测试 
+### 部署环境 
+    阿里云的乞丐服务器,1核2G内存1M带宽
 ###  测试工具 webbench
 - 分别测试10,100,1000个客户端分别请求服务器10秒
 结果如下:
-- 10个客户端
+- 10个客户端  
+
 10 clients, running 10 sec.
 Speed=3024 pages/min, 61055 bytes/sec.
 Requests: 504 susceed, 0 failed.
-- 100个客户端
+- 100个客户端  
+
 100 clients, running 10 sec.
 Speed=2364 pages/min, 47756 bytes/sec.
 Requests: 394 susceed, 0 failed.
 
-- 1000个客户端
+- 1000个客户端  
+
 1000 clients, running 10 sec.
 Speed=6216 pages/min, 125738 bytes/sec.
 Requests: 1036 susceed, 0 failed.
-
 ## 一些小发现
 ## 在http发送请求等待响应时,服务器对回应的处理
 1. 子线程使用epollctl 将socket添加写事件,然后主线程epoll_wait监测到写事件就绪去写回应
