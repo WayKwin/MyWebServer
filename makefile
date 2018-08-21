@@ -3,7 +3,7 @@ WORKDIR=.
 VPATH= ./src
 CC=g++ 
 THIRD_PART=$(HOME)/third_part
-F= -Wall -g -I$(WORKDIR)/incl/ -I$(THIRD_PART)/include -std=c++11 -D__DAEMON__ #-D__DEBUG__ 
+F= -Wall -g -I$(WORKDIR)/incl/ -I$(THIRD_PART)/include -std=c++11 #-D__DAEMON__ #-D__DEBUG__ 
 
 BIN=WK_Http Stress_Client
 
