@@ -9,8 +9,11 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <string.h>
+#define  InitDaemon do{\
+  daemon(1,0);\
+}while(0)\
 
-static const char* request = "GET http://localhost/index.html HTTP/1.1\r\nConnection: keep-alive\r\n\r\nxxxxxxxxxxxx";
+static const char* request = "GET / HTTP/1.1\r\nConnection: keep-alive\r\n\r\nxxxxxxxxxxxx";
 
 int setnonblocking( int fd )
 {
@@ -83,7 +86,6 @@ void start_conn( int epoll_fd, int num, const char* ip, int port )
 
     for ( int i = 0; i < num; ++i )
     {
-        sleep( 1 );
         int sockfd = socket( PF_INET, SOCK_STREAM, 0 );
         printf( "create 1 sock\n" );
         if( sockfd < 0 )
@@ -108,6 +110,9 @@ void close_conn( int epoll_fd, int sockfd )
 int main( int argc, char* argv[] )
 {
     assert( argc == 4 );
+#ifdef __DAEMON__
+    InitDaemon;
+#endif
     int epoll_fd = epoll_create( 100 );
     start_conn( epoll_fd, atoi( argv[ 3 ] ), argv[1], atoi( argv[2] ) );
     epoll_event events[ 10000 ];

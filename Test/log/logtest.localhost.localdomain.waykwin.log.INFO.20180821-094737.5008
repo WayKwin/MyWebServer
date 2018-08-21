@@ -1,0 +1,5 @@
+Log file created at: 2018/08/21 09:47:37
+Running on machine: localhost.localdomain
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0821 09:47:37.948153  5008 testlog.cpp:9] a
+W0821 09:47:37.948523  5008 testlog.cpp:10] b

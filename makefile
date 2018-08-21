@@ -2,17 +2,17 @@
 WORKDIR=.
 VPATH= ./src
 CC=g++ 
-F= -Wall -g -I$(WORKDIR)/incl/ -std=c++11 -D__DEBUG__
-#LIBFLAG=.
+THIRD_PART=$(HOME)/third_part
+F= -Wall -g -I$(WORKDIR)/incl/ -I$(THIRD_PART)/include -std=c++11 -D__DAEMON__ #-D__DEBUG__ 
 
-BIN=WK_Http Stress_Clinet
+BIN=WK_Http Stress_Client
 
 all:$(BIN)
 
 
-WK_Http:locker.o http_conn.o threadpool.o main.o log.o
-	$(CC) -lpthread $^ -o $@
-Stress_Clinet:stress_clint.o
+WK_Http:locker.o http_conn.o threadpool.o main.o 
+	$(CC) -lpthread  $^ -o $@ -L$(THIRD_PART)/lib -lglog
+Stress_Client:stress_clint.o
 	$(CC) -lpthread $^ -o $@
 
 %.o:%.cpp

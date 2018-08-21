@@ -13,11 +13,16 @@
 #include"../incl/http_conn.h"
 #include "threadpool.cpp"
 #include"../incl/locker.h"
-#include"../incl/log.h"
+#include "/home/waykwin/third_part/include/glog/logging.h"
+
+
 
 #define PORT 8080
 #define MAX_FD 1024
 #define  MAX_EVENT_NUMBER 2048 
+#define  InitDaemon do{\
+  daemon(1,0);\
+}while(0)\
 
 int startup()
 {
@@ -32,13 +37,13 @@ int startup()
   setsockopt(sock,SOL_SOCKET,SO_REUSEADDR, &on,sizeof(on));
   if(bind(sock,(struct sockaddr*)&service,sizeof(service)) < 0 )
   {  
-    Http_Log(__FILE__,__LINE__,HttpLevel[4],0,"startup() blind() %s",strerror(errno));
+    LOG(FATAL) << " addsig bind error ";
     return -1;
   }
   int ret = listen(sock,2);
   if(ret != 0)
   {
-    Http_Log(__FILE__,__LINE__,HttpLevel[4],ret,"startup() listen() %s",strerror(errno));
+    LOG(FATAL) << " addsig listen error ";
     return -1;
   }
 
@@ -57,21 +62,24 @@ int addsig(int sig,void(handler)(int),bool restart = true)
     sa.sa_flags |= SA_RESTART;
   }
   sigfillset(&sa.sa_mask);
-  //LogError("sigfillset");
 
   if(sigaction(sig,&sa,NULL) == -1)
   {
-      Http_Log(__FILE__,__LINE__,HttpLevel[4],errno,"startup() listen_sock create fail");
       return -1;
   }
   return 1;
 }
 
-int main()
+int main(int argc,char** argv)
 {
-  //Http_Log(__FILE__,__LINE__,HttpLevel[1],0," HTTP Server start");
+#ifdef __DAEMON__
+  InitDaemon;
+#endif
+  google::InitGoogleLogging(argv[0]); 
+  fLS::FLAGS_log_dir = "./log";
   if(addsig(SIGPIPE,SIG_IGN) < 0 )
   {
+    LOG(FATAL) << " addsig SIGPIPE error ";
     return 1;
   }
   
@@ -81,7 +89,7 @@ int main()
   int epollfd = epoll_create(5);
   if(epollfd < 0)
   {
-    //Http_Log(__FILE__,__LINE__,HttpLevel[4],0,"main() epoll_create:%s",strerror(errno));
+    LOG(FATAL) << " addsig epoll_create() error ";
     return 1;
   }
   HttpConnec::m_epollfd = epollfd;
@@ -97,25 +105,20 @@ int main()
 
   if(usrs == NULL)
   {
-    //Http_Log(__FILE__,__LINE__,HttpLevel[4],0,"main() memory full");
     goto END;
-    //LogError("memory full");
   }
 
   assert(usrs);
 
 
   addfd(epollfd,listen_sock,false);
-
-
+  LOG(INFO) << "Web Server Start Successfully";
     while(1)
     {
       int number = epoll_wait(epollfd,evs,MAX_EVENT_NUMBER,-1);
       // errno == EINTR 表示被中断而不是出错
       if(number < 0 && errno != EINTR)
       {
-          //LogInfo("epoll wait failure");
-          //Http_Log(__FILE__,__LINE__,HttpLevel[4],0,"main() epoll_wait %s",strerror(errno));
           break;
       }
       int i = 0;
@@ -131,8 +134,7 @@ int main()
           assert(clinet_sock>= 0);
           if(HttpConnec::m_user_count >= MAX_FD)
           {
-            //Http_Log(__FILE__,__LINE__,HttpLevel[3],0,"main() epoll_wait too manny users");
-            //LogWarning("service busying");
+            LOG(WARNING) << "service busying";
             continue;
           }
           usrs[clinet_sock].init(clinet_sock,clinet_addr); 
@@ -162,6 +164,5 @@ END:
     close(epollfd);
     if(usrs == NULL)
     delete [] usrs;
-    //Http_Log(__FILE__,__LINE__,HttpLevel[1],0," HTTP Server End");
     return 0;
 }

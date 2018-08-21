@@ -1,0 +1,4 @@
+Log file created at: 2018/08/21 10:14:10
+Running on machine: localhost.localdomain
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0821 10:14:10.589376  7344 main.cpp:115] Web Server Start Successfully
