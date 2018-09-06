@@ -4,6 +4,16 @@
 
 
 - [我把服务器挂在阿里云上了,网页点这里](http://waykwin.xin:8080/)
+## Usage 
+- 启动服务器
+```
+ make clean && make && ./WK_Http
+```
+- 关闭服务器
+```
+./StopServer.sh
+```
+
 ## 开发环境 
   - Linux,VIM,CGDB,CLANG++
 ## 实现细节
