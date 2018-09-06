@@ -1,6 +1,9 @@
 # 自主Web服务器
 ## 主体框架  
-![这里本来是一张图片,看到文字表明GitHub的网对国内环境太不友好了!](https://github.com/WayKwin/MyWebServer/blob/master/picture/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6.png) 
+![这里本来是一张图片,看到文字表明GitHub的网对国内环境太不友好了!](https://github.com/WayKwin/MyWebServer/blob/master/picture/%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%A1%86%E6%9E%B6.png)  
+
+
+- [我把服务器挂在阿里云上了,网页点这里](http://waykwin.xin:8080/)
 ## 开发环境 
   - Linux,VIM,CGDB,CLANG++
 ## 实现细节
@@ -11,8 +14,12 @@
   - 支持POST和GET方法
   - 判断是否是长连接(Keep-Alive)
   - CGI
-    - 写了一个提交表单插入数据库的玩具Demon
+    - 写了一个提交表单插入数据库的玩具Demo
     - 支持Shell,PHP,Python脚本
+## 扩展
+  - 发现只要实现简单的GET和POST方法,就可以在前端挂载一些网页了
+  - 虽然不懂前端,但是还是鼓捣出了一些小工具,实现了进制转换,二维码生成和日期计算,看上去不错!
+  - 把这个服务器变成守护进程就挂载阿里云上了
 ## 压力测试 
 ### 部署环境 
     阿里云的乞丐服务器,1核2G内存1M带宽

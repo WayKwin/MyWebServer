@@ -1,0 +1,4 @@
+Log file created at: 2018/09/06 16:13:51
+Running on machine: izwz95t9mwm2pi0lwlt3xpz
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+F0906 16:13:51.811664 21747 main.cpp:40]  addsig bind error 

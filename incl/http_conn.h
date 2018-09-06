@@ -47,7 +47,7 @@ class HttpConnec
   private:
   static const int MAX_FILE_NAME_LEN = 256; 
   static const int READ_BUFFER_SIZE = 2048; 
-  static const int WRITE_BUFFER_SIZE= 2048; 
+  static const int WRITE_BUFFER_SIZE=  2048; 
   static const int CGI_RECV_SIZE = 2048;
 
   

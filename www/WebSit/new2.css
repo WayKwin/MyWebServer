@@ -1,0 +1,16 @@
+body,td{font-size:16px;line-height:25.5px;color:#062240}
+table{border-collapse:collapse;cursor:default;}
+table td{padding:0;}                             
+input{height:29px;}
+
+a:link{color:#062240;text-decoration:none}
+a:visited{color:#411f05;text-decoration:none;}
+a:hover{color:#ff0000;text-decoration:none}
+
+.pop{position:absolute;display:none;z-index:10}
+.jq{font-size:13px;line-height:14px;color:blue}
+.fes{font-size:13px;line-height:14px;color:#808080;}
+.big3{font-size:29px;line-height:30px;}
+.sel{background-color:#FFFFCC;}
+.wn{height:60;color:#404040;font-size:13px;}
+.spl{border-right:solid 1px white;}

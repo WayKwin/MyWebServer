@@ -1,0 +1,358 @@
+<html>
+<head>
+<meta name="viewport" content="width=1024, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="北京时间,记事日历"/>
+<meta name="description" content="本站提供标准北京时间、时间校对软件、在线闹钟、全球时间、日历查询，以及其他一些时间相关的工具和知识，网络记事本提供记事日历、备忘录等功能，并可发送邮件日期提醒。">
+<title>北京时间 - 日历 - 记事</title>
+<LINK href="new2.css" type="text/css" rel="stylesheet" />
+
+
+<script type="text/javascript" src="new.js"></script>
+<script type="text/javascript" src="js/srv2.js"></script>
+<script type="text/javascript" src="cld/new.js"></script>
+     
+
+
+
+<base target=_blank>
+</head>
+
+<body style="margin: 0px" bgcolor="#e7e7e7" >
+
+
+<DIV id=detail class=pop style="background-color:yellow;"></DIV>
+
+<DIV id=hint class=pop style="background-color:#ccbbaa;padding-left:2px;">
+<table width=200 ><tr>
+<td id=riqi>
+<td align=right valign=top>
+</table>
+<textarea id=memo style="border:0;width:180;height:40;overflow:hidden" onkeyup="hsave()"></textarea>
+<br>
+<input type=button value="关 闭" style="border:0" onclick="hclose()"></input>
+</DIV>
+
+
+<center>
+
+<div style="background-color:#c0c8fa;height:115px;border-bottom:dotted 1px blue;" align=center>
+
+<table style="width: 920px;height: 115px">
+<tr>
+<td align=center width=180 >
+<img src=logo.gif border=0 ><br>
+
+
+</td>
+
+<td valign=middle >
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 触屏 -->
+<ins class="adsbygoogle"
+		style="display:inline-block;width:728px;height:90px"
+		data-ad-client="ca-pub-2872916894005511"
+		data-ad-slot="7884886813"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>	
+</td></tr>
+</table>
+
+
+</div>
+
+
+
+
+<table style="margin-top:20px;height:30px;width:920px;text-align:center;background:#d8d8d8">
+<tr>
+<td class=spl>
+<a href=worldtime/>全球时间</a>
+</td>
+<td class=spl>
+<a href=shicha/>各地时差</a>
+</td>	
+<td class=spl><a href=riqi/>日期计算</a></td>
+<td class=spl>
+<a href=bazi/>八字计算</a>	
+</td>
+<td>
+<a href=download>软件下载</a>
+</td>
+</tr>	
+</table>
+
+<form  name=theForm onsubmit="return gotobaidu()" style="margin-top:15px;">
+搜索<input type="text" name="q" size="25" maxlength="255" value=""></input><input type="button" name="bing" value="必 应" onclick="gotobing()"></input></input><input type="button" name="bd" value="百 度" onclick="gotobaidu()"><input type="button" name="gg" value="谷 歌" onclick="gotogoogle()"></input><input type="button" name="ciba" value="词 霸" onclick="gotociba()"></input>
+</form>
+
+
+<table style="width:920px;margin-top:10px;">
+<tr>
+
+
+<td align=center valign=top bgcolor=#dddddd style="width:160px;padding-top:5px;border-right:solid 2px rgb(90,84,56)">
+
+
+	<div style="background-color:#99ccff;width:150px;padding:5px;" align=center>
+       <font id=yy></font>年<font id=mm></font>月
+	<br><font id=nn style="font-size:60px;line-height:60px;"></font>
+	<br>
+    星期<font id="ww" class="kaiti"></font>
+   
+	</div>
+
+<script>
+function opentool(sub,weight,height)
+{
+	window.open(sub,sub,"width="+weight+",height="+height+",toolbar=no,menubar=no,top=220,left=200")
+	return false;
+}
+</script>
+
+	<div style="width:150px;margin-top:20px;">
+
+<!--a href=# target=_self onclick='opentool("search",500,120)'>搜索</a-->
+<a href=wangzhi>网址</a>
+<br><br>
+<a href=# target=_self onclick='opentool("xbb",500,300)'>小白板</a>
+<br><br>
+<a href=# target=_self onclick='opentool("jsq",670,420)'>计算器</a>
+ <br>
+	</div>
+
+<br>
+
+
+<td width=15 ></td>
+
+
+<td  align=center valign=top style="border-top:solid 3px #003366">
+
+
+<div align="left" style="padding-left: 20px;background-color: #dddddd;">
+<font id=y></font>年<font id=m></font>月<font id=n></font>日
+&nbsp;星期<font id=w></font>
+&nbsp;<font id=nl></font>
+&nbsp;<font id="jq"></font>
+&nbsp;<font id="sanjiu" class="kaiti"></font>
+</div>
+
+<table  style="height:80px;width:100%;padding-top:2px;" bgcolor=#dddddd>
+<tr>
+<td width=120 >
+<span style="font-size:13px">标准北京时间</span>
+ 
+<td align=center>
+
+
+	<span id=time style="font-size:50px;line-height:50px;color:blue" >
+	<font id=hrs>时</font>:&nbsp;<font id=min>分</font>:&nbsp;<font id=sec>秒</font></span>&nbsp;<font id=msec></font></span>
+
+
+
+
+<td width=120  align=left>
+
+    <span style="font-size: 13px;" id="getting"><a href=# target=_self onclick="giveinfo();st();">刷新时间</a>
+ </span>
+  
+</table>
+
+
+<table  style="width:100%;border-bottom:solid 2px blue;background:#dddddd">
+<tr>
+
+<td align=center>
+
+	<a href=alarm><span style="font-size:13px;">在线闹钟</span></a>&nbsp;&nbsp;
+
+</table>
+
+
+
+
+<br>
+
+<table width=100% style="border-bottom:dotted 1px #0586D7">
+<tr>
+<td>
+<i>点击日期写入记事</i>	
+<td>
+	<div align=right>
+	<a href="user/login.asp"><font style="font-size:18px;">→网络记事本登录</font></a>&nbsp;&nbsp;
+<small><a href=user/newuser.asp>注册</a>&nbsp;&nbsp;&nbsp;
+	</div>
+
+</td>
+</tr>
+</table>
+
+
+
+<table width=600 >
+<tr>
+<td align=left width=70>
+
+<a href=# onclick="preback(-1);return false;" ><img src=leftmon.gif border=0 >&nbsp;上月</a>
+
+
+<td align=center >
+
+<SELECT id="monsel" name=SM onchange=selectym() class="sel"></SELECT>月<FONT id=YMBG style="COLOR:silver; FONT-FAMILY:Arial Black;"></FONT>
+<SELECT id="yearsel" name=SY onchange=selectym() class="sel"> 
+</SELECT>年
+
+<td align=left width="70">
+<a id=curMonth href=# onclick="cldinit();return false;" style="display:none">返回</a>
+
+<td align=right width=70>
+
+<a href=# onclick="preback(1);return false;" >下月&nbsp;<img src=rightmon.gif border=0 ></a>
+
+</td></tr>
+
+</table>
+
+
+
+
+<SCRIPT type="text/javascript">
+    showsel();
+</SCRIPT>
+
+
+
+<TABLE width=690 >
+<tr>
+<td width=50 align=center valign=top>
+
+
+<TABLE style="text-align:center;font-style:italic;margin-top:28px;" >
+<tr><td id=w1 class=wn>
+<tr><td id=w2 class=wn>
+<tr><td id=w3 class=wn>
+<tr><td id=w4 class=wn>
+<tr><td id=w5 class=wn>
+<tr><td id=w6 class=wn>
+</table>
+
+
+<td width=604 align=center valign="top">
+
+<DIV style="OVERFLOW: hidden; WIDTH: 600px; HEIGHT: 1px; BACKGROUND-COLOR: #ccccc"></DIV>
+<DIV style="OVERFLOW: hidden; WIDTH: 602px; HEIGHT: 1px; BACKGROUND-COLOR: #cccccc"></DIV>
+
+<TABLE width=100%>
+<TR align=center style="height: 22px" bgcolor=#cccccc>
+<TD style="color:#cc0000" width=72>日</TD>
+<TD  width=72>一</TD>
+<TD  width=72>二</TD>
+<TD  width=72>三</TD>
+<TD  width=72>四</TD>
+<TD  width=72>五</TD>
+<TD style="color:green" width=72>六</TD>
+</TR>
+</table>
+
+<TABLE id="MDAYS" style="width:100%;border-bottom:solid 1px red;">
+</TABLE>
+
+
+
+<td width=50 align=center>
+
+
+<TABLE style="margin-top:28px;">
+<tr><td class=wn id=n1>
+<tr><td class=wn id=n2>
+<tr><td class=wn id=n3>
+<tr><td class=wn id=n4>
+<tr><td class=wn id=n5>
+<tr><td class=wn id=n6>
+</table>
+
+
+</table>
+
+<script>
+showdays(72,60);
+</script>
+
+
+<div style="width:620px;text-align:right;" id=GZ></div>
+
+
+<script>
+st();
+</script>
+
+
+<div align=left style="margin-left:50px;margin-top:25px;width:80%">
+<table width=100%>
+<tr>
+<td>
+◇<a href=info/view.asp?id=25 class=a2>时辰与身体经脉</a>
+    <br>
+◇<a href=info/view.asp?id=23 class=a2>养生十六宜</a>
+   <br>
+◇<a href=info/view.asp?id=95 class=a2>长寿的秘诀</a>
+   <br>
+◇<a href=info/view.asp?id=298 >四季养生提示</a>
+<td valign=top>
+
+◇<a href=info/view.asp?id=298 >五脏排毒方法</a>
+<br>
+◇<a href=info/view.asp?id=208 >治白头发的秘方</a>
+<br>
+◇<a href=info/view.asp?id=206 >上火分实火和虚火</a>
+<br>
+◇<a href=info/view.asp?id=207 >肾虚有四种</a>
+</table>
+
+
+<a href="info/" style="float:right;background:#EE9090;" >→<i>更多文章</i></a>
+</div>
+
+
+
+
+</tr>
+
+</table>
+
+
+
+
+
+
+
+
+<div style="width:930px;border-top:solid 1px #0586D7;padding-top:10px;margin-top:70px;" align=center>
+<a target="_self" href=m.asp>触屏版</a>
+&nbsp;|&nbsp;
+<a  href=contact.asp>联系本站</a>
+&nbsp;|&nbsp;
+<a  href="guestbook/">留言簿</a>
+
+<br>
+bjtime.cn&nbsp;&nbsp;京ICP备05006023号&nbsp;&nbsp;京公网安备110102003328
+<br>
+    <small style="color: #0586D7;">
+
+</small>
+<br>
+  
+</div>
+
+</center>
+
+
+
+
+
+</body>
+</html>
+
+
